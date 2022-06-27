@@ -34,7 +34,7 @@ class CrawlerDataCommand extends Command
         $html = file_get_html($linkProduct);
         foreach ($html->find('#__next > div > div.container.ct-listing > div.styles_listViewWrapper__162PR > div.styles_base__2D2wo > main > div.no-padding.col-md-8.ct-col-8 > div.list-view > div > div:nth-child(1) > ul:nth-child(1) > div:nth-child(1) > li > a') as $link) {
             $href = $link->getAttribute('href') ?? '';
-            $text = $link->plaintext ?? '';
+            $text = $link->childNodes(1)->plaintext;
             $priceBox[] = [
                 'name' => $text,
                 'link' => $href,
