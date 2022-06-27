@@ -1,0 +1,31 @@
+version: '2'
+services:
+    web:
+        build: .
+        ports:
+            - "8000:80"
+        container_name: web-crawler
+        volumes:
+            - ./:/var/www/html
+            - ./apache2/conf.d/:/etc/apache2/sites-available/
+        working_dir: /var/www/html
+        networks:
+            laravel:
+                aliases:
+                    - laravel
+    db:
+        image: mysql
+        ports:
+            - "3307:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: crawler
+            MYSQL_USER: dongnq
+            MYSQL_PASSWORD: 123456Aa@
+        networks:
+            laravel:
+                aliases:
+                    - laravel
+networks:
+    laravel:
+        external: true
